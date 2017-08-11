@@ -10,17 +10,17 @@ import org.springframework.cloud.stream.messaging.Sink;
 
 @SpringBootApplication
 @EnableBinding(Sink.class)
-public class CloudStreamMessageConsumerApplication {
+public class CloudStreamOtherConsumerApplication {
 
   private static final Logger logger =
-      LoggerFactory.getLogger(CloudStreamMessageConsumerApplication.class);
+      LoggerFactory.getLogger(CloudStreamOtherConsumerApplication.class);
 
   public static void main(String[] args) {
-    SpringApplication.run(CloudStreamMessageConsumerApplication.class, args);
+    SpringApplication.run(CloudStreamOtherConsumerApplication.class, args);
   }
 
   @StreamListener(Sink.INPUT)
   public void handleMessage(String message) {
-    logger.info("Message is: {}", message);
+    logger.info("Upper case message is: {}", message.toUpperCase());
   }
 }
