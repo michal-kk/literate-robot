@@ -17,14 +17,14 @@ import org.springframework.messaging.support.GenericMessage;
 public class CloudStreamIntegrationProducerApplication {
 
   private static AtomicInteger atomicInteger = new AtomicInteger(0);
-  
+
   public static void main(String[] args) {
     SpringApplication.run(CloudStreamIntegrationProducerApplication.class, args);
   }
 
   @Bean
   @InboundChannelAdapter(value = Source.OUTPUT,
-      poller = @Poller(fixedDelay = "2000"))
+      poller = @Poller(fixedDelay = "${example.integrationproducer.pollerDelay}"))
   public MessageSource<SimpleMessage> timerMessageSource() {
     return () -> new GenericMessage<>(
         new SimpleMessage(atomicInteger.incrementAndGet(), "from channel adapter"));
