@@ -1,6 +1,7 @@
 package com.example.demo;
 
 
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class CloudStreamMessageProducerApplication {
   @GetMapping
   public String sendMessage() {
     source.output().send(MessageBuilder
-        .withPayload("this is a message number " + counter.incrementAndGet()).build());
+        .withPayload(new Message(counter.incrementAndGet(), Instant.now().toString())).build());
 
     return "ok";
   }

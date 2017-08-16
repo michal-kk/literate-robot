@@ -20,7 +20,9 @@ public class CloudStreamMessageConsumerApplication {
   }
 
   @StreamListener(Sink.INPUT)
-  public void handleMessage(String message) {
-    logger.info("Message is: {}", message);
+  public void handleMessage(ReceivedMessage receivedMessage) {
+    logger.info("Message number is: {}, sent on: {}, with extra info: {}",
+        receivedMessage.getNumber(), receivedMessage.getTimestamp(),
+        receivedMessage.getExtraInfo());
   }
 }
