@@ -13,7 +13,7 @@ import org.springframework.integration.core.MessageSource;
 import org.springframework.messaging.support.GenericMessage;
 
 @SpringBootApplication
-@EnableBinding(Source.class)
+@EnableBinding({Source.class, AnotherSource.class})
 public class CloudStreamIntegrationProducerApplication {
 
   private static AtomicInteger atomicInteger = new AtomicInteger(0);
@@ -28,5 +28,13 @@ public class CloudStreamIntegrationProducerApplication {
   public MessageSource<SimpleMessage> timerMessageSource() {
     return () -> new GenericMessage<>(
         new SimpleMessage(atomicInteger.incrementAndGet(), "from channel adapter"));
+  }
+
+  @Bean
+  @InboundChannelAdapter(value = AnotherSource.ANOTHER_OUTPUT,
+      poller = @Poller(fixedDelay = "5000"))
+  public MessageSource<SimpleMessage> anotherTimerMessageSource() {
+    return () -> new GenericMessage<>(
+        new SimpleMessage(atomicInteger.incrementAndGet(), "from another channel adapter"));
   }
 }
