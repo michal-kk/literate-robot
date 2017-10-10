@@ -1,7 +1,9 @@
 def subDirs
 
 node {
-    checkout scm
+    stage('checkout') {
+        checkout scm
+    }
 
     // what is this @tmp/ directory??
     subDirs = sh(returnStdout: true,
