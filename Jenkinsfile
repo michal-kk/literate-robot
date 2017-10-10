@@ -1,9 +1,7 @@
 def subDirs
 
 node {
-    stage('checkout') {
-        git 'https://github.com/michal-kk/literate-robot.git'
-    }
+    checkout scm
 
     // what is this @tmp/ directory??
     subDirs = sh(returnStdout: true,
