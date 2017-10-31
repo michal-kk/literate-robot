@@ -14,4 +14,4 @@ spring.rabbitmq.username=guest
 spring.rabbitmq.password=guest
 ```
 
-See [the documentation](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/_rabbitmq_binder.html) of other options.
+See [the documentation](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/_rabbitmq_binder.html) for other options.

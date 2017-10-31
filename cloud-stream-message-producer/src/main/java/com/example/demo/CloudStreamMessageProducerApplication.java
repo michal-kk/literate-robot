@@ -1,6 +1,5 @@
 package com.example.demo;
 
-
 import java.time.Instant;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -9,8 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -27,11 +27,13 @@ public class CloudStreamMessageProducerApplication {
     SpringApplication.run(CloudStreamMessageProducerApplication.class, args);
   }
 
-  @GetMapping
-  public String sendMessage() {
-    source.output().send(MessageBuilder
-        .withPayload(new Message(counter.incrementAndGet(), Instant.now().toString())).build());
+  @RequestMapping
+  public ResponseEntity<NumberedMessage> sendMessage() {
+    final NumberedMessage numberedMessage =
+        new NumberedMessage(counter.incrementAndGet(), Instant.now().toString());
 
-    return "ok";
+    source.output().send(MessageBuilder.withPayload(numberedMessage).build());
+
+    return ResponseEntity.ok(numberedMessage);
   }
 }

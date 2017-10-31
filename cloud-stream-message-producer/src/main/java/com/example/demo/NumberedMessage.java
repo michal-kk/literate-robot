@@ -1,11 +1,11 @@
 package com.example.demo;
 
-public class Message {
+public class NumberedMessage {
 
   private int number;
   private String timestamp;
 
-  public Message(int number, String timestamp) {
+  public NumberedMessage(int number, String timestamp) {
     this.number = number;
     this.timestamp = timestamp;
   }
